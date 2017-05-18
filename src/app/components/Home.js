@@ -1,22 +1,35 @@
 import React from "react";
 export class Home extends React.Component{
+	constructor(props){
+		super();
+		this.state = {
+		age :props.initialAge,
+		status:0	
+		}
+	}
+	onMakeOlder(){
+		this.setState({
+			age:this.state.age + 3
+		});
+		setTimeout(() =>{
+			this.setState({
+				status:1
+			});
+		},3000)
+	}
+
 	render(){
-var text = "something";
+
 		return(
 
 			<div>
 			<p>I am a New Component</p>
-			<p>{text}</p>
-			<p>Your name is {this.props.name} , your age is {this.props.age}</p>
-			<p>User Object => Name: {this.props.user.name}</p>
-			<div>
-			<h4>Hobbies</h4>
-			<ul>
-			<li>{this.props.user.hobbies.map((hobby,i) => <li key={i}>{hobby}</li>)}</li>
-			</ul>
-			</div>
+			
+			<p>Your name is {this.props.name} , your age is {this.state.age}</p>
+			<p>Status: {this.state.status}</p>
 			<hr/>
-			{this.props.children}
+			<button onClick={() => this.onMakeOlder()} className="btn btn-primary">Make me Older!</button>
+			
 			</div>
 		);
 	}
@@ -24,7 +37,6 @@ var text = "something";
 
 Home.propTypes = {
 	name: React.PropTypes.string,
-	age:  React.PropTypes.number,
-	user: React.PropTypes.object,
-	children:React.PropTypes.element.isRequired
+	initialAge:  React.PropTypes.number,
+	
 };
